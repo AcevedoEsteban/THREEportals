@@ -1,0 +1,11 @@
+Model Information:
+* title:	Semi Trailer
+* source:	https://sketchfab.com/3d-models/semi-trailer-f507a422e9344e76934c5fbf06eb81d7
+* author:	NoblecatSoft (https://sketchfab.com/NoblecatSoft)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Semi Trailer" (https://sketchfab.com/3d-models/semi-trailer-f507a422e9344e76934c5fbf06eb81d7) by NoblecatSoft (https://sketchfab.com/NoblecatSoft) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

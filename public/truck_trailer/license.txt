@@ -1,0 +1,11 @@
+Model Information:
+* title:	Truck Trailer
+* source:	https://sketchfab.com/3d-models/truck-trailer-cd9a5677626f4b648a4a3b1e0d9ca5b9
+* author:	cmitche1 (https://sketchfab.com/cmitche1)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Truck Trailer" (https://sketchfab.com/3d-models/truck-trailer-cd9a5677626f4b648a4a3b1e0d9ca5b9) by cmitche1 (https://sketchfab.com/cmitche1) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
