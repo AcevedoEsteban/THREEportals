@@ -26,70 +26,92 @@ extend(geometry);
 const GOLDENRATIO = 1.61803398875;
 const regular = import('@pmndrs/assets/fonts/inter_regular.woff');
 const medium = import('@pmndrs/assets/fonts/inter_medium.woff');
+function GammaCorrection() {
+  const { gl } = useThree();
 
-export const App = () => (
-  <Canvas
-    camera={{ fov: 75, position: [0, 0, 0] }}
-    eventSource={document.getElementById('root')}
-    eventPrefix='client'>
-    <color attach='background' args={['#f0f0f0']} />
+  useEffect(() => {
+    gl.gammaFactor = 2.2;
+    gl.gammaOutput = true;
+  }, [gl]);
 
-    <group position={[0, -0.8, 0]}>
-      <Frame
-        id='01'
-        name={`Mercedes\nBenz`}
-        author='SDC PERFORMANCE™️'
-        bg='#e4cdac'
-        position={[-1.15, 0, 0]}
-        rotation={[0, 0.5, 0]}
-        modelScale={0.62}
-        modelPosition={[0, -0.4, -4]}
-        modelSrc='/free__rubiks_cube_3d/scene.gltf'
-        lightPosition={[0, -0.7, -2]}
-        lightIntensity={1}
-        lightAngle={Math.PI / 6}
-        lightPenumbra={0.7}
-        hasReflector={true} // This frame will have a reflector
-      />
-      <Frame
-        id='02'
-        name={`FedEx\nVan`}
-        author=''
-        bg='#545454'
-        modelSrc='/free_cyberpunk_hovercar/scene.gltf'
-        modelPosition={[0, -1.5, -8]}
-        modelRotation={[0, 0, 0]}
-        lightPosition={[-5, 3, 0]}
-        lightIntensity={1.8}
-        lightAngle={Math.PI / 6}
-        modelScale={1.2}
-        lightPenumbra={0.7}
-      />
+  return null;
+}
+export const App = () => {
+  return (
+    <>
+      <Canvas
+        camera={{ fov: 75, position: [0, 0, 0] }}
+        eventSource={document.getElementById('root')}
+        eventPrefix='client'>
+        <color attach='background' args={['#f0f0f0']} />
+        <GammaCorrection /> {/* Include the custom component here */}
+        <group position={[0, -0.8, 0]}>
+          <Frame
+            id='01'
+            name={`Mercedes\nBenz`}
+            author='SDC PERFORMANCE™️'
+            bg='#e4cdac'
+            position={[-1.15, 0, 0]}
+            rotation={[0, 0.5, 0]}
+            modelScale={0.62}
+            modelPosition={[0.2, -0.3, -4]}
+            modelSrc='/free__rubiks_cube_3d/scene.gltf'
+            lightPosition={[0, -0.7, -2]}
+            lightIntensity={1}
+            lightAngle={Math.PI / 6}
+            modelRotation={[0, 0, 0]}
+            lightPenumbra={0.7}
+            hasReflector={true} // This frame will have a reflector
+          />
+          <Frame
+            id='02'
+            name={`Cyber\nHoverCar`}
+            author=''
+            bg='#545454'
+            modelSrc='/VanWrap/scene.gltf'
+            modelPosition={[0, -1.1, -6]}
+            modelRotation={[0, 0.5, 0]}
+            lightPosition={[-5, 3, -12]}
+            lightIntensity={5}
+            lightAngle={Math.PI / 6}
+            modelScale={0.0089}
+            lightPenumbra={0.7}
+            shouldRotate={true} // Set to true to enable rotation
+            rotationSpeeds={{ x: 0.0, y: 0.02, z: 0.0 }}
+            // hasReflector={true} // This frame will have a reflector
+          />
 
-      <Frame
-        id='03'
-        name={`Bimbo\nsemi`}
-        author='re1monsen'
-        bg='#d1d1ca'
-        position={[1.15, 0, 0]}
-        rotation={[0, -0.5, 0]}
-        modelScale={0.5}
-        modelPosition={[0, -0.1, -3]}
-        modelSrc='/space_station_3/scene.gltf'
-        lightPosition={[-5, 3, 0]}
-        lightIntensity={0.8}
-        lightAngle={Math.PI / 6}
-        lightPenumbra={0.7}
-      />
-    </group>
-    <Rig />
-    <EffectComposer>
-      <Bloom luminanceThreshold={0.9} luminanceSmoothing={0.9} height={300} />
-      {/* Add more passes as needed */}
-    </EffectComposer>
-    {/* <Environment /> */}
-  </Canvas>
-);
+          <Frame
+            id='03'
+            name={`Bimbo\nsemi`}
+            author='re1monsen'
+            bg='#d1d1ca'
+            position={[1.15, 0, 0]}
+            rotation={[0, -0.5, 0]}
+            modelScale={0.5}
+            modelPosition={[0, -0.1, -3]}
+            modelSrc='/space_station_3/scene.gltf'
+            lightPosition={[-5, 3, 0]}
+            lightIntensity={0.8}
+            lightAngle={Math.PI / 6}
+            lightPenumbra={0.7}
+            modelRotation={[0, 0, 0]}
+            shouldRotate={true} // Set to true to enable rotation
+            rotationSpeeds={{ x: 0.01, y: 0.00, z: 0.01 }}
+          />
+        </group>
+        <Rig />
+        <EffectComposer>
+          <Bloom
+            luminanceThreshold={0.9}
+            luminanceSmoothing={0.9}
+            height={300}
+          />
+        </EffectComposer>
+      </Canvas>
+    </>
+  );
+};
 
 function Rig({
   position = new THREE.Vector3(0, 0, 2),
@@ -126,10 +148,15 @@ function Frame({
   lightAngle = Math.PI / 6,
   lightPenumbra = 0,
   hasReflector = false,
+  shouldRotate = false,
+  // initialRotation = [0, 0, 0],
+  rotationSpeeds = { x: 0.01, y: 0.01, z: 0.01 },
   children,
   ...props
 }) {
   const portal = useRef();
+  const modelRef = useRef(); // Reference to the model
+
   const [, setLocation] = useLocation();
   const [, params] = useRoute('/item/:id');
   const [hovered, hover] = useState(false);
@@ -143,41 +170,44 @@ function Frame({
       });
     }
   }, [animations, mixer]);
-  useEffect(() => {
-    if (id === '02' && gltf.scene) {
-      gltf.scene.traverse((child) => {
-        if (child.isMesh && child.material) {
-          child.material.metalness = 1; // Fully metallic
-          child.material.roughness = 0.1; // Shiny surface
-          child.material.needsUpdate = true; // Ensure the material updates
-        }
-      });
-    }
-  }, [gltf, id]);
 
   const onDoubleClick = (e) => (
     e.stopPropagation(), setLocation('/item/' + e.object.name)
   );
   useCursor(hovered);
   useFrame((state, delta) => mixer?.update(delta));
+  useFrame(() => {
+    if (shouldRotate && modelRef.current) {
+      modelRef.current.rotation.x += rotationSpeeds.x;
+      modelRef.current.rotation.y += rotationSpeeds.y;
+      modelRef.current.rotation.z += rotationSpeeds.z;
+    }
+  });
 
   useFrame((state, dt) =>
     easing.damp(portal.current, 'blend', params?.id === id ? 1 : 0, 0.2, dt)
   );
+  const setRefs = (node) => {
+    // Assign to modelRef
+    modelRef.current = node;
+    // Assign to ref from useAnimations
+    ref.current = node;
+  };
+
   const reflector = hasReflector && (
     <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeBufferGeometry args={[10, 10]} />
+      <planeGeometry args={[10, 10]} />
       <MeshReflectorMaterial
         color={bg}
-        blur={[300, 100]} // Amount of blur (width, height)
-        resolution={1024} // Texture resolution
-        mixBlur={1} // Mix value for blur
-        mixStrength={10} // Strength of the reflections
-        depthScale={1} // Depth of the reflections
+        blur={[300, 100]}
+        resolution={1024}
+        mixBlur={1}
+        mixStrength={10}
+        depthScale={1}
         minDepthThreshold={1}
         maxDepthThreshold={1}
-        metalness={1} // Define how metallic the surface should be
-        roughness={.7} // Define the roughness of the surface
+        metalness={1}
+        roughness={0.7}
       />
     </mesh>
   );
@@ -230,15 +260,15 @@ function Frame({
           />
           {reflector}
           <Gltf
+            ref={setRefs}
             scale={modelScale}
             position={modelPosition}
             rotation={modelRotation}
             src={modelSrc}
-            ref={ref}
             object={gltf.scene}
           />
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} intensity={0.8} />
+          <ambientLight intensity={0.1} />
+          <directionalLight position={[10, 10, 10]} intensity={0.25} />
         </MeshPortalMaterial>
       </mesh>
     </group>
