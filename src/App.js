@@ -97,7 +97,7 @@ export const App = () => {
             lightPenumbra={0.7}
             modelRotation={[0, 0, 0]}
             shouldRotate={true} // Set to true to enable rotation
-            rotationSpeeds={{ x: 0.01, y: 0.00, z: 0.01 }}
+            rotationSpeeds={{ x: 0.01, y: 0.0, z: 0.01 }}
           />
         </group>
         <Rig />
@@ -163,10 +163,13 @@ function Frame({
   const gltf = useLoader(GLTFLoader, modelSrc);
   const { animations } = gltf;
   const { ref, mixer } = useAnimations(animations);
+
   useEffect(() => {
     if (animations && animations.length > 0) {
-      animations.forEach((clip) => {
-        mixer.clipAction(clip).play();
+      console.log('Loaded Animations:' + { id });
+      animations.forEach((clip, index) => {
+        console.log(`Animation ${index + 1}:`);
+        console.dir(clip);
       });
     }
   }, [animations, mixer]);
