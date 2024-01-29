@@ -1,12 +1,13 @@
-import * as THREE from 'three';
-import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three'
+import { useEffect, useRef, useState } from 'react'
 import {
   Canvas,
   extend,
   useFrame,
   useThree,
   useLoader,
-} from '@react-three/fiber';
+  useGraph,
+} from '@react-three/fiber'
 import {
   useCursor,
   MeshPortalMaterial,
@@ -15,26 +16,26 @@ import {
   Text,
   useAnimations,
   MeshReflectorMaterial,
-} from '@react-three/drei';
-import { useRoute, useLocation } from 'wouter';
-import { easing, geometry } from 'maath';
-import { suspend } from 'suspend-react';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Bloom, EffectComposer } from '@react-three/postprocessing';
+} from '@react-three/drei'
+import { useRoute, useLocation } from 'wouter'
+import { easing, geometry } from 'maath'
+import { suspend } from 'suspend-react'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
-extend(geometry);
-const GOLDENRATIO = 1.61803398875;
-const regular = import('@pmndrs/assets/fonts/inter_regular.woff');
-const medium = import('@pmndrs/assets/fonts/inter_medium.woff');
+extend(geometry)
+const GOLDENRATIO = 1.61803398875
+const regular = import('@pmndrs/assets/fonts/inter_regular.woff')
+const medium = import('@pmndrs/assets/fonts/inter_medium.woff')
 function GammaCorrection() {
-  const { gl } = useThree();
+  const { gl } = useThree()
 
   useEffect(() => {
-    gl.gammaFactor = 2.2;
-    gl.gammaOutput = true;
-  }, [gl]);
+    gl.gammaFactor = 2.2
+    gl.gammaOutput = true
+  }, [gl])
 
-  return null;
+  return null
 }
 export const App = () => {
   return (
@@ -48,7 +49,7 @@ export const App = () => {
         <group position={[0, -0.8, 0]}>
           <Frame
             id='01'
-            name={`Mercedes\nBenz`}
+            name={`Rubix\nCube`}
             author='SDC PERFORMANCE™️'
             bg='#e4cdac'
             position={[-1.15, 0, 0]}
@@ -65,11 +66,11 @@ export const App = () => {
           />
           <Frame
             id='02'
-            name={`Cyber\nHoverCar`}
-            author=''
+            name={`Heavy\nRain`}
+            author='Paxar095'
             bg='#545454'
-            modelSrc='/VanWrap/scene.gltf'
-            modelPosition={[0, -1.1, -6]}
+            modelSrc='/rain_1/scene.gltf'
+            modelPosition={[0, -4, -6]}
             modelRotation={[0, 0.5, 0]}
             lightPosition={[-5, 3, -12]}
             lightIntensity={5}
@@ -83,7 +84,7 @@ export const App = () => {
 
           <Frame
             id='03'
-            name={`Bimbo\nsemi`}
+            name={`Space\nStation`}
             author='re1monsen'
             bg='#d1d1ca'
             position={[1.15, 0, 0]}
@@ -110,26 +111,26 @@ export const App = () => {
         </EffectComposer>
       </Canvas>
     </>
-  );
-};
+  )
+}
 
 function Rig({
   position = new THREE.Vector3(0, 0, 2),
   focus = new THREE.Vector3(0, 0, 0),
 }) {
-  const { controls, scene } = useThree();
-  const [, params] = useRoute('/item/:id');
+  const { controls, scene } = useThree()
+  const [, params] = useRoute('/item/:id')
   useEffect(() => {
-    const active = scene.getObjectByName(params?.id);
+    const active = scene.getObjectByName(params?.id)
     if (active) {
-      active.parent.localToWorld(position.set(0, GOLDENRATIO * 0.75, 0.25));
-      active.parent.localToWorld(focus.set(0, GOLDENRATIO / 2, -2));
+      active.parent.localToWorld(position.set(0, GOLDENRATIO * 0.75, 0.25))
+      active.parent.localToWorld(focus.set(0, GOLDENRATIO / 2, -2))
     }
-    controls?.setLookAt(...position.toArray(), ...focus.toArray(), true);
-  });
+    controls?.setLookAt(...position.toArray(), ...focus.toArray(), true)
+  })
   return (
     <CameraControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
-  );
+  )
 }
 
 function Frame({
@@ -154,48 +155,64 @@ function Frame({
   children,
   ...props
 }) {
-  const portal = useRef();
-  const modelRef = useRef(); // Reference to the model
+  const portal = useRef()
+  const modelRef = useRef() // Reference to the model
 
-  const [, setLocation] = useLocation();
-  const [, params] = useRoute('/item/:id');
-  const [hovered, hover] = useState(false);
-  const gltf = useLoader(GLTFLoader, modelSrc);
-  const { animations } = gltf;
-  const { ref, mixer } = useAnimations(animations);
-
+  const [, setLocation] = useLocation()
+  const [, params] = useRoute('/item/:id')
+  const [hovered, hover] = useState(false)
+  const gltf = useLoader(GLTFLoader, modelSrc)
+  const { animations } = gltf
+  const { ref, mixer } = useAnimations(animations)
   useEffect(() => {
     if (animations && animations.length > 0) {
-      console.log('Loaded Animations:' + { id });
-      animations.forEach((clip, index) => {
-        console.log(`Animation ${index + 1}:`);
-        console.dir(clip);
-      });
+      animations.forEach((clip) => {
+        mixer.clipAction(clip).play()
+        console.log(mixer._actions[0])
+      })
     }
-  }, [animations, mixer]);
+  }, [animations, mixer])
 
   const onDoubleClick = (e) => (
     e.stopPropagation(), setLocation('/item/' + e.object.name)
-  );
-  useCursor(hovered);
-  useFrame((state, delta) => mixer?.update(delta));
+  )
+  useCursor(hovered)
+  useFrame((state, delta) => mixer?.update(delta))
   useFrame(() => {
     if (shouldRotate && modelRef.current) {
-      modelRef.current.rotation.x += rotationSpeeds.x;
-      modelRef.current.rotation.y += rotationSpeeds.y;
-      modelRef.current.rotation.z += rotationSpeeds.z;
+      modelRef.current.rotation.x += rotationSpeeds.x
+      modelRef.current.rotation.y += rotationSpeeds.y
+      modelRef.current.rotation.z += rotationSpeeds.z
     }
-  });
+  })
 
   useFrame((state, dt) =>
     easing.damp(portal.current, 'blend', params?.id === id ? 1 : 0, 0.2, dt)
-  );
+  )
   const setRefs = (node) => {
     // Assign to modelRef
-    modelRef.current = node;
+    modelRef.current = node
     // Assign to ref from useAnimations
-    ref.current = node;
-  };
+    ref.current = node
+  }
+
+  // const { nodes } = useGraph(gltf.scene);
+
+  // const hoodNode = nodes['Hood'];
+
+  // console.log(hoodNode);
+
+  // // Log each node
+  // Object.keys(nodes).forEach(key => {
+  //   console.log(`Node ${key}:`, nodes[key]);
+  // });
+
+  // useFrame(() => {
+  //   // Example of manipulating the hood node
+  //   if (hoodNode) {
+  //     hoodNode.rotation.x += 0.01; // This is just an example, adjust as needed
+  //   }
+  // });
 
   const reflector = hasReflector && (
     <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -213,7 +230,7 @@ function Frame({
         roughness={0.7}
       />
     </mesh>
-  );
+  )
   return (
     <group {...props}>
       <Text
@@ -275,5 +292,5 @@ function Frame({
         </MeshPortalMaterial>
       </mesh>
     </group>
-  );
+  )
 }
