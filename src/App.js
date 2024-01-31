@@ -17,7 +17,7 @@ import {
   useAnimations,
   MeshReflectorMaterial,
 } from '@react-three/drei'
-import { useRoute, useLocation } from 'wouter'
+import { useParams, useNavigate } from 'react-router-dom';
 import { easing, geometry } from 'maath'
 import { suspend } from 'suspend-react'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -118,19 +118,21 @@ function Rig({
   position = new THREE.Vector3(0, 0, 2),
   focus = new THREE.Vector3(0, 0, 0),
 }) {
-  const { controls, scene } = useThree()
-  const [, params] = useRoute('/item/:id')
+  const { controls, scene } = useThree();
+  const params = useParams(); // Use useParams to get route parameters
+
   useEffect(() => {
-    const active = scene.getObjectByName(params?.id)
+    const active = scene.getObjectByName(params.id); // Access the parameter directly
     if (active) {
-      active.parent.localToWorld(position.set(0, GOLDENRATIO * 0.75, 0.25))
-      active.parent.localToWorld(focus.set(0, GOLDENRATIO / 2, -2))
+      active.parent.localToWorld(position.set(0, GOLDENRATIO * 0.75, 0.25));
+      active.parent.localToWorld(focus.set(0, GOLDENRATIO / 2, -2));
     }
-    controls?.setLookAt(...position.toArray(), ...focus.toArray(), true)
-  })
+    controls?.setLookAt(...position.toArray(), ...focus.toArray(), true);
+  });
+
   return (
     <CameraControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
-  )
+  );
 }
 
 function Frame({
@@ -158,8 +160,8 @@ function Frame({
   const portal = useRef()
   const modelRef = useRef() // Reference to the model
 
-  const [, setLocation] = useLocation()
-  const [, params] = useRoute('/item/:id')
+   const navigate = useNavigate(); // Replace useLocation with useNavigate
+  const params = useParams(); 
   const [hovered, hover] = useState(false)
   const gltf = useLoader(GLTFLoader, modelSrc)
   const { animations } = gltf
@@ -173,9 +175,10 @@ function Frame({
     }
   }, [animations, mixer])
 
-  const onDoubleClick = (e) => (
-    e.stopPropagation(), setLocation('/item/' + e.object.name)
-  )
+  const onDoubleClick = (e) => {
+    e.stopPropagation();
+    navigate('/item/' + e.object.name); // Replace setLocation with navigate
+  };
   useCursor(hovered)
   useFrame((state, delta) => mixer?.update(delta))
   useFrame(() => {

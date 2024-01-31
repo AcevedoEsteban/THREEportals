@@ -1,17 +1,20 @@
-import { createRoot } from 'react-dom/client'
-import { useRoute, useLocation } from 'wouter'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './styles.css'
-// import { Logo } from '@pmndrs/branding'
+// import { Logo } from '@pmndrs/branding';
 import { App } from './App'
 
 function Root() {
-  
-  const [, params] = useRoute('/item/:id')
-  const [, setLocation] = useLocation()
-  
+  // Navigation now uses the Link component or useNavigate for redirection
   return (
-    <>
-      <App />
+  <Router>
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='/item/:id' element={<App />} />
+        {/* Define more routes as needed */}
+      </Routes>
       <div
         style={{
           position: 'absolute',
@@ -41,15 +44,16 @@ function Root() {
         {/* <Logo
           style={{ position: 'absolute', bottom: 40, left: 40, width: 30 }}
         /> */}
-        <a
-          style={{ position: 'absolute', top: 40, left: 40, fontSize: '13px' }}
-          href='#'
-          onClick={() => setLocation('/')}>
-          {params ? '< back' : 'double click to enter portal'}
-        </a>
-      </div>{' '}
-    </>
+     <Link
+          to='/'
+          style={{ position: 'absolute', top: 40, left: 40, fontSize: '13px' }}>
+          {'< back'}
+        </Link>
+      </div>
+    </Router>
   )
 }
 
-createRoot(document.getElementById('root')).render(<Root />)
+const container = document.getElementById('root')
+const root = createRoot(container) // Create a root.
+root.render(<Root />)
