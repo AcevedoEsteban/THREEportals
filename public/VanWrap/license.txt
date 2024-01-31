@@ -1,8 +1,0 @@
-Model Information:
-* title:	Peugeot Boxer Fedex
-* source:	https://sketchfab.com/3d-models/peugeot-boxer-fedex-aac9fc499416484d95a58720f897faa2
-* author:	codexito (https://sketchfab.com/codexito)
-
-Model License:
-* license type:	SKETCHFAB Editorial (https://sketchfab.com/licenses)
-* requirements:	Use only in connection with events that are newsworthy or of public interest
