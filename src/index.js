@@ -5,8 +5,10 @@ import './styles.css'
 import { App } from './App'
 
 function Root() {
+  
   const [, params] = useRoute('/item/:id')
   const [, setLocation] = useLocation()
+  
   return (
     <>
       <App />
@@ -41,7 +43,7 @@ function Root() {
         /> */}
         <a
           style={{ position: 'absolute', top: 40, left: 40, fontSize: '13px' }}
-          // href='#'
+          href='#'
           onClick={() => setLocation('/')}>
           {params ? '< back' : 'double click to enter portal'}
         </a>
