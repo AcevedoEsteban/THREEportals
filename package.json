@@ -1,8 +1,6 @@
 {
   "name": "portalcard",
   "version": "0.1.0",
-  "homepage": "https://acevedoesteban.github.io/THREEportals/",
-  "description": "A portal card with react-three-fiber",
   "private": true,
   "dependencies": {
     "@pmndrs/assets": "^1.6.0",
