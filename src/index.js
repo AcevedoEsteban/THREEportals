@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import { useRoute, useLocation } from 'wouter'
 import './styles.css'
+import { LoadingProvider } from './LoadingContext'
+
 import { App } from './App'
 
 function Root() {
@@ -8,7 +10,9 @@ function Root() {
   const [, setLocation] = useLocation()
   return (
     <>
-      <App />
+      <LoadingProvider>
+        <App />
+      </LoadingProvider>
       <div
         style={{
           position: 'absolute',

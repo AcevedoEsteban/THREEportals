@@ -22,7 +22,8 @@ import { easing, geometry } from 'maath'
 import { suspend } from 'suspend-react'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
-
+import { useLoading } from './LoadingContext';
+import LoadingIndicator from './LoadingIndicator';
 extend(geometry)
 const GOLDENRATIO = 1.61803398875
 const regular = import('@pmndrs/assets/fonts/inter_regular.woff')
@@ -37,9 +38,35 @@ function GammaCorrection() {
 
   return null
 }
+const modelSources = [
+  '/free__rubiks_cube_3d/scene.gltf',
+  '/rain_1/scene.gltf',
+  '/space_station_3/scene.gltf',
+];
+
 export const App = () => {
+  const { setLoading } = useLoading();
+
+  useEffect(() => {
+    // Show loading indicator
+    setLoading(true);
+
+    // Load all models and wait until they are all loaded
+    const loaders = modelSources.map(src => {
+      return new Promise((resolve, reject) => {
+        new GLTFLoader().load(src, resolve, null, reject);
+      });
+    });
+
+    Promise.all(loaders).then(() => {
+      // All models have been loaded
+      setLoading(false); // Hide loading indicator
+    });
+  }, [setLoading]); // Dependency array
+
   return (
     <>
+      <LoadingIndicator /> 
       <Canvas
         camera={{ fov: 75, position: [0, 0, 0] }}
         eventSource={document.getElementById('root')}
