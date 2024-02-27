@@ -77,7 +77,7 @@ export const App = () => {
           <Frame
             id='01'
             name={`Rubix\nCube`}
-            author='Model Author: SDC PERFORMANCE™️'
+            author=': SDC PERFORMANCE™️'
             bg='#e4cdac'
             position={[-1.15, 0, 0]}
             rotation={[0, 0.5, 0]}
@@ -94,7 +94,7 @@ export const App = () => {
           <Frame
             id='02'
             name={`Ballon\nDog`}
-            author='Model Author: Octaclee'
+            author=': Octaclee'
             bg='#000000'
             modelSrc='/ballon_dog/scene.gltf'
             modelPosition={[0, -2, -6]}
@@ -114,7 +114,7 @@ export const App = () => {
           <Frame
             id='03'
             name={`GLaDOS`}
-            author='Model Author: DAVID.3D.ART'
+            author=': DAVID.3D.ART'
             bg='#d1d1ca'
             position={[1.15, 0, 0]}
             rotation={[0, -0.5, 0]}
