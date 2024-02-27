@@ -26,7 +26,7 @@ const LoadingIndicator = () => {
       <p style={{ marginTop: '20px' }}>
         Loading...
         <>
-          <h6>it will load but it can take awhile</h6>
+          {/* <h6>it will load but it can take awhile</h6> */}
         </>
       </p>
     </div>

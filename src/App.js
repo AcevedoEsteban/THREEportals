@@ -95,7 +95,7 @@ export const App = () => {
             id='02'
             name={`Ballon\nDog`}
             author=':Octaclee'
-            bg='#1B1212'
+            bg='#301934'
             modelSrc='/ballon_dog/scene.gltf'
             modelPosition={[0, -2, -6]}
             modelRotation={[0, 0.5, 0]}
@@ -115,7 +115,7 @@ export const App = () => {
             id='03'
             name={`GLaDOS`}
             author=':DAVID.3D.ART'
-            bg='#d1d1ca'
+            bg='#FF7F50'
             position={[1.15, 0, 0]}
             rotation={[0, -0.5, 0]}
             modelScale={10.5}
