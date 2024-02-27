@@ -95,12 +95,12 @@ export const App = () => {
             id='02'
             name={`Ballon\nDog`}
             author=':Octaclee'
-            bg='#000000'
+            bg='#454545'
             modelSrc='/ballon_dog/scene.gltf'
             modelPosition={[0, -2, -6]}
             modelRotation={[0, 0.5, 0]}
-            lightPosition={[-5, 3, -12]}
-            lightIntensity={5}
+            lightPosition={[-10, 10, 15]}
+            lightIntensity={10}
             lightAngle={Math.PI / 6}
             modelScale={10.1089}
             lightPenumbra={0.7}
@@ -234,10 +234,10 @@ function Frame({
         if (child.isMesh) {
           child.material = new THREE.MeshStandardMaterial({
       color: new THREE.Color("#ff69b4"), // Pink color
-          opacity: 0.9, // Adjust opacity as needed
+          opacity: 0.7, // Adjust opacity as needed
           transparent: true, // Required for opacity to work
-          roughness: 0.3, // Low roughness for glossiness
-          metalness: 0.55, // Adju opacity to work
+          roughness: 0.2, // Low roughness for glossiness
+          metalness: .99, // Adju opacity to work
           });
         }
       });
