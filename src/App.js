@@ -22,8 +22,8 @@ import { easing, geometry } from 'maath'
 import { suspend } from 'suspend-react'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
-import { useLoading } from './LoadingContext';
-import LoadingIndicator from './LoadingIndicator';
+import { useLoading } from './LoadingContext'
+import LoadingIndicator from './LoadingIndicator'
 extend(geometry)
 const GOLDENRATIO = 1.61803398875
 const regular = import('@pmndrs/assets/fonts/inter_regular.woff')
@@ -41,32 +41,32 @@ function GammaCorrection() {
 const modelSources = [
   '/free__rubiks_cube_3d/scene.gltf',
   '/ballon_dog/scene.gltf',
-'/GLaDOS/scene.gltf'
-];
+  '/GLaDOS/scene.gltf',
+]
 
 export const App = () => {
-  const { setLoading } = useLoading();
+  const { setLoading } = useLoading()
 
   useEffect(() => {
     // Show loading indicator
-    setLoading(true);
+    setLoading(true)
 
     // Load all models and wait until they are all loaded
-    const loaders = modelSources.map(src => {
+    const loaders = modelSources.map((src) => {
       return new Promise((resolve, reject) => {
-        new GLTFLoader().load(src, resolve, null, reject);
-      });
-    });
+        new GLTFLoader().load(src, resolve, null, reject)
+      })
+    })
 
     Promise.all(loaders).then(() => {
       // All models have been loaded
-      setLoading(false); // Hide loading indicator
-    });
-  }, [setLoading]); // Dependency array
+      setLoading(false) // Hide loading indicator
+    })
+  }, [setLoading]) // Dependency array
 
   return (
     <>
-      <LoadingIndicator /> 
+      <LoadingIndicator />
       <Canvas
         camera={{ fov: 75, position: [0, 0, 0] }}
         eventSource={document.getElementById('root')}
@@ -95,7 +95,7 @@ export const App = () => {
             id='02'
             name={`Ballon\nDog`}
             author=':Octaclee'
-            bg='#454545'
+            bg='#1B1212'
             modelSrc='/ballon_dog/scene.gltf'
             modelPosition={[0, -2, -6]}
             modelRotation={[0, 0.5, 0]}
@@ -106,7 +106,7 @@ export const App = () => {
             lightPenumbra={0.7}
             shouldRotate={true} // Set to true to enable rotation
             rotationSpeeds={{ x: 0.0, y: 0.02, z: 0.0 }}
-              shouldApplySpecialEffect={true} // This prop is true only for the balloon dog frame
+            shouldApplySpecialEffect={true} // This prop is true only for the balloon dog frame
 
             // hasReflector={true} // This frame will have a reflector
           />
@@ -215,7 +215,6 @@ function Frame({
       modelRef.current.rotation.z += rotationSpeeds.z
     }
   })
-  
 
   useFrame((state, dt) =>
     easing.damp(portal.current, 'blend', params?.id === id ? 1 : 0, 0.2, dt)
@@ -225,25 +224,23 @@ function Frame({
     modelRef.current = node
     // Assign to ref from useAnimations
     ref.current = node
-  };
+  }
 
   useEffect(() => {
-     
     if (shouldApplySpecialEffect && modelRef.current) {
       modelRef.current.traverse((child) => {
         if (child.isMesh) {
           child.material = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#ff69b4"), // Pink color
-          opacity: 0.7, // Adjust opacity as needed
-          transparent: true, // Required for opacity to work
-          roughness: 0.2, // Low roughness for glossiness
-          metalness: .99, // Adju opacity to work
-          });
+            color: new THREE.Color('#ff69b4'), // Pink color
+            opacity: 0.7, // Adjust opacity as needed
+            transparent: true, // Required for opacity to work
+            roughness: 0.2, // Low roughness for glossiness
+            metalness: 0.99, // Adju opacity to work
+          })
         }
-      });
+      })
     }
-  }, [shouldApplySpecialEffect, modelRef.current]);
-
+  }, [shouldApplySpecialEffect, modelRef.current])
 
   const reflector = hasReflector && (
     <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
