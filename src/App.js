@@ -40,8 +40,8 @@ function GammaCorrection() {
 }
 const modelSources = [
   '/free__rubiks_cube_3d/scene.gltf',
-  '/rain_1/scene.gltf',
-  '/space_station_3/scene.gltf',
+  '/ballon_dog/scene.gltf',
+'/GLaDOS/scene.gltf'
 ];
 
 export const App = () => {
@@ -77,7 +77,7 @@ export const App = () => {
           <Frame
             id='01'
             name={`Rubix\nCube`}
-            author='SDC PERFORMANCE™️'
+            author='Model Author: SDC PERFORMANCE™️'
             bg='#e4cdac'
             position={[-1.15, 0, 0]}
             rotation={[0, 0.5, 0]}
@@ -93,32 +93,34 @@ export const App = () => {
           />
           <Frame
             id='02'
-            name={`Heavy\nRain`}
-            author='Paxar095'
-            bg='#545454'
-            modelSrc='/rain_1/scene.gltf'
-            modelPosition={[0, -4, -6]}
+            name={`Ballon\nDog`}
+            author='Model Author: Octaclee'
+            bg='#000000'
+            modelSrc='/ballon_dog/scene.gltf'
+            modelPosition={[0, -2, -6]}
             modelRotation={[0, 0.5, 0]}
             lightPosition={[-5, 3, -12]}
             lightIntensity={5}
             lightAngle={Math.PI / 6}
-            modelScale={0.0089}
+            modelScale={10.1089}
             lightPenumbra={0.7}
             shouldRotate={true} // Set to true to enable rotation
             rotationSpeeds={{ x: 0.0, y: 0.02, z: 0.0 }}
+              shouldApplySpecialEffect={true} // This prop is true only for the balloon dog frame
+
             // hasReflector={true} // This frame will have a reflector
           />
 
           <Frame
             id='03'
-            name={`Space\nStation`}
-            author='re1monsen'
+            name={`GLaDOS`}
+            author='Model Author: DAVID.3D.ART'
             bg='#d1d1ca'
             position={[1.15, 0, 0]}
             rotation={[0, -0.5, 0]}
-            modelScale={0.5}
-            modelPosition={[0, -0.1, -3]}
-            modelSrc='/space_station_3/scene.gltf'
+            modelScale={10.5}
+            modelPosition={[0.01, -0.1, -3]}
+            modelSrc='/GLaDOS/scene.gltf'
             lightPosition={[-5, 3, 0]}
             lightIntensity={0.8}
             lightAngle={Math.PI / 6}
@@ -180,6 +182,7 @@ function Frame({
   // initialRotation = [0, 0, 0],
   rotationSpeeds = { x: 0.01, y: 0.01, z: 0.01 },
   children,
+  shouldApplySpecialEffect = false,
   ...props
 }) {
   const portal = useRef()
@@ -212,6 +215,7 @@ function Frame({
       modelRef.current.rotation.z += rotationSpeeds.z
     }
   })
+  
 
   useFrame((state, dt) =>
     easing.damp(portal.current, 'blend', params?.id === id ? 1 : 0, 0.2, dt)
@@ -221,25 +225,25 @@ function Frame({
     modelRef.current = node
     // Assign to ref from useAnimations
     ref.current = node
-  }
+  };
 
-  // const { nodes } = useGraph(gltf.scene);
+  useEffect(() => {
+     
+    if (shouldApplySpecialEffect && modelRef.current) {
+      modelRef.current.traverse((child) => {
+        if (child.isMesh) {
+          child.material = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#ff69b4"), // Pink color
+          opacity: 0.9, // Adjust opacity as needed
+          transparent: true, // Required for opacity to work
+          roughness: 0.3, // Low roughness for glossiness
+          metalness: 0.55, // Adju opacity to work
+          });
+        }
+      });
+    }
+  }, [shouldApplySpecialEffect, modelRef.current]);
 
-  // const hoodNode = nodes['Hood'];
-
-  // console.log(hoodNode);
-
-  // // Log each node
-  // Object.keys(nodes).forEach(key => {
-  //   console.log(`Node ${key}:`, nodes[key]);
-  // });
-
-  // useFrame(() => {
-  //   // Example of manipulating the hood node
-  //   if (hoodNode) {
-  //     hoodNode.rotation.x += 0.01; // This is just an example, adjust as needed
-  //   }
-  // });
 
   const reflector = hasReflector && (
     <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>

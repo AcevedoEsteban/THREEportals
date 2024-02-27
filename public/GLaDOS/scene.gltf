@@ -1,0 +1,382 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 55815,
+      "max": [
+        7.640837669372559,
+        4.42134952545166,
+        5.701244354248047
+      ],
+      "min": [
+        -7.640837669372559,
+        -4.42134952545166,
+        -5.701244354248047
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 669780,
+      "componentType": 5126,
+      "count": 55815,
+      "max": [
+        0.9999768733978271,
+        0.9999285340309143,
+        0.9999035596847534
+      ],
+      "min": [
+        -0.9997087121009827,
+        -0.9999489188194275,
+        -0.9996352195739746
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 55815,
+      "max": [
+        0.9971799850463867,
+        0.9981300234794617
+      ],
+      "min": [
+        0.0008499999530613422,
+        0.0017510652542114258
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 446520,
+      "componentType": 5126,
+      "count": 55815,
+      "max": [
+        1.272012710571289,
+        0.9406534433364868
+      ],
+      "min": [
+        7.329486106755212e-05,
+        0.04966533184051514
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 284976,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 1339560,
+      "componentType": 5126,
+      "count": 649,
+      "max": [
+        4.951778411865234,
+        2.5354087352752686,
+        -1.191575050354004
+      ],
+      "min": [
+        4.046206474304199,
+        1.8446710109710693,
+        -2.1019105911254883
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 1347348,
+      "componentType": 5126,
+      "count": 649,
+      "max": [
+        0.898312509059906,
+        0.9930523037910461,
+        0.13006389141082764
+      ],
+      "min": [
+        -0.12254582345485687,
+        0.21447931230068207,
+        -0.8958851099014282
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 893040,
+      "componentType": 5126,
+      "count": 649,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        6.661338147750939e-16,
+        0.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 898232,
+      "componentType": 5126,
+      "count": 649,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 1139904,
+      "componentType": 5125,
+      "count": 2880,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "DAVID 3D ART (https://sketchfab.com/david3dart)",
+      "license": "CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)",
+      "source": "https://sketchfab.com/3d-models/potato-glados-from-portal-2-a81175115d544237a19070c582882f02",
+      "title": "Potato GLADOS - From Portal 2"
+    },
+    "generator": "Sketchfab-15.25.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 1151424,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 903424,
+      "byteOffset": 1151424,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1355136,
+      "byteOffset": 2054848,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 3409984,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_specular",
+    "KHR_materials_emissive_strength"
+  ],
+  "images": [
+    {
+      "uri": "textures/Texture_0_baseColor.png"
+    },
+    {
+      "uri": "textures/material_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularColorFactor": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "specularFactor": 0.0
+        }
+      },
+      "name": "Texture_0",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.06552400921602808,
+        "roughnessFactor": 0.5348587729029269
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissiveTexture": {
+        "index": 1
+      },
+      "extensions": {
+        "KHR_materials_emissive_strength": {
+          "emissiveStrength": 10.0
+        },
+        "KHR_materials_specular": {
+          "specularColorFactor": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "specularFactor": 0.6324442648605614
+        }
+      },
+      "name": "material",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.0
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Potato_Glados_Texture_0_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2,
+            "TEXCOORD_1": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Potato_Glados_Mat_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TEXCOORD_0": 7,
+            "TEXCOORD_1": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.5066444873809814,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.3454227996298634e-16,
+        -1.5066444873809814,
+        0.0,
+        0.0,
+        1.5066444873809814,
+        3.3454227996298634e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0,
+        0.0,
+        -0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "5c5902ad9625401cad4e2ffa2aca5a6e.fbx"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4,
+        5
+      ],
+      "name": "Potato_Glados"
+    },
+    {
+      "mesh": 0,
+      "name": "Potato_Glados_Texture_0_0"
+    },
+    {
+      "mesh": 1,
+      "name": "Potato_Glados_Mat_1"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}
