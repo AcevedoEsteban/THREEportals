@@ -115,7 +115,7 @@ export const App = () => {
             id='03'
             name={`GLaDOS`}
             author=':DAVID.3D.ART'
-            bg='#FF7F50'
+            bg='#FF4500'
             position={[1.15, 0, 0]}
             rotation={[0, -0.5, 0]}
             modelScale={10.5}
